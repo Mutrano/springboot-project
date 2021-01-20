@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -53,7 +52,14 @@ public class Order implements Serializable {
 		setOrderStatus(orderStatus);
 		this.client = client;
 	}
-
+	
+	public Double getTotal() {
+		Double sum = 0.0;
+		for(OrderItem item:items) {
+			sum+= item.getSubTotal();
+		}
+		return sum;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -88,7 +94,6 @@ public class Order implements Serializable {
 	public void setClient(User client) {
 		this.client = client;
 	}
-	
 	public Payment getPayment() {
 		return payment;
 	}
